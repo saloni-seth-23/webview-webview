@@ -5,23 +5,26 @@
  * @param {string} value - The value of the cookie.
  * @param {number} [days] - The number of days the cookie should persist. Defaults to 7 days if not provided.
  */
-// function setCookie(name, value, days = 7) {
-//   const expires = new Date();
+export function setCookie(name, value, days = 7) {
+  const expires = new Date();
 
-//   expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000); // Expiration date in milliseconds
-//   document.cookie = `${name}=${encodeURIComponent(
-//     value
-//   )}; expires=${expires.toUTCString()}; path=/`;
-// }
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000); // Expiration date in milliseconds
+  document.cookie = `${name}=${encodeURIComponent(
+    value
+  )}; expires=${expires.toUTCString()}; path=/`;
+}
 
-// // Setting cookies
-// setCookie('AUTH_SESSION_ID', 123);
-// setCookie('docket_id', '674811bf58ee38d9d0f1ac02');
-// setCookie('signer_id', '674811bf58ee38d9d0f1ac02');
-// setCookie('document_id', '674811bf58ee38d9d0f1ac02');
-// setCookie('reference_id', '674811bf58ee38d9d0f1ac02');
+/**
+ * Function to clear all cookies
+ */
+export function clearAllCookies() {
+  document.cookie.split(";").forEach(cookie => {
+      const cookieName = cookie.split("=")[0].trim();
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  });
+  console.log("All cookies cleared!");
+}
 
-// console.log('Cookies set successfully!');
 
 /**
  * Reads a specific value from browser cookies.
